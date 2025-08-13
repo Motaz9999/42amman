@@ -2,7 +2,7 @@ NAME = libft.a
 
 CC = gcc
 
-CFLAG = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRC = ft_atoi.c\
 		ft_bzero.c\
@@ -10,7 +10,7 @@ SRC = ft_atoi.c\
 		ft_isalpha.c\
 		ft_isascii.c\
 		ft_isdigit.c\
-		ft_islnum.c\
+		ft_isalnum.c\
 		ft_isprint.c\
 		ft_memchr.c\
 		ft_memcmp.c\
@@ -33,23 +33,39 @@ SRC = ft_atoi.c\
 		ft_tolower.c\
 		ft_toupper.c\
 		ft_itoa.c
+
 OBJ = $(SRC:.c=.o)
 
+HEADER = libft.h
+
+BONUS =ft_lstadd_back.c\
+		ft_lstadd_front.c\
+		ft_lstclear.c\
+		ft_lstdelone.c\
+		ft_lstiter.c\
+		ft_lstlast.c\
+		ft_lstmap.c\
+		ft_lstnew.c\
+		ft_lstsize.c
+
+OBJBONUS = $(BONUS:.c=.o)
 
 all:$(NAME)
 
-
 $(NAME):$(OBJ)
-	ar rcs$(CC) $(CFLAG) $(OBJ) -o $(NAME)
+	ar rcs $(NAME)  $(OBJ)
 
-%.o: %.c 
-		
+bonus: $(OBJBONUS)
+	ar rcs $(NAME) $(OBJ) $(OBJBONUS)
+
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ)$(OBJBONUS)
 fclean: clean
 	rm -f $(NAME)
+
 re: fclean all
 
 .PHONY: all clean fclean re
