@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/13 20:36:30 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/13 23:27:52 by motaz            ###   ########.fr       */
+/*   Created: 2025/08/14 18:18:58 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/14 18:19:34 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int size;
+	int	size;
+
 	size = 0;
 	while (lst != NULL)
 	{

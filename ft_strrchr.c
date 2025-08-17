@@ -1,17 +1,54 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/09 17:06:41 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/17 01:36:19 by motaz            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char    *ft_strrchr(const char *s, int c)
+#include "libft.h"
+//#include <stdio.h>
+char	*ft_strrchr(const char *s, int c)
 {
-    char *str = s;
-    int strlen = ft_strlen(str);
-    while (strlen >= 0)
-    {
-        if (str[strlen] == c)
-        {
-           str = &str[strlen];
-            return str;
-        }
-        strlen--;
-    }
-    return NULL;
-}
+	int			str_len;
+
+	if(!s)
+		return (NULL);
+	str_len = (int)ft_strlen(s); 
+	while (str_len >=  0)
+	{
+		if (s[str_len] == (char)c)
+			return ((char *)(s + str_len));
+		str_len--;
+	}
+	return (NULL);
+}/*
+
+
+int main(void)
+{
+    const char *str = "HelloWorld";
+    char *res;
+
+    res = ft_strrchr(str, 'l');
+    if (res)
+        printf("%s\n", res);
+
+    res = ft_strrchr(str, 'H');
+    if (res)
+        printf("%s\n", res);
+
+    res = ft_strrchr(str, 'z');
+    if (res)
+        printf("%s\n", res);
+    else
+        printf("Character not found!\n");
+
+    res = ft_strrchr(str, '\0');
+    if (res)
+        printf("Found null terminator at the end of string.\n");
+}*/

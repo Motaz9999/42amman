@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/13 20:21:07 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/13 23:29:02 by motaz            ###   ########.fr       */
+/*   Created: 2025/08/14 17:57:41 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/17 02:33:48 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (!new)
+		return ;
+	if (!*lst)
 	{
+		*lst = new;
 		return ;
 	}
-    if(!*lst)
-    {
-        *lst = new;
-        return ;
-    }
 	new->next = *lst;
 	*lst = new;
 }

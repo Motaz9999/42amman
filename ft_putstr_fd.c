@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 19:59:29 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/12 20:00:11 by motaz            ###   ########.fr       */
+/*   Created: 2025/08/14 17:28:19 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/17 02:52:42 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int len = ft_strlen(s);
+	int	len;
+
+	len = ft_strlen(s);
 	write(fd, s, len);
 }
+/*
+#include "libft.h"
+#include <fcntl.h> // open
+#include <stdlib.h>
+
+int main(void)
+{
+    int fd = open("test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    if (fd < 0)
+        return 1;
+
+    ft_putstr_fd("Hello, World!\n", fd);
+    close(fd);
+    ft_putstr_fd("Printed on screen\n", 1);
+
+    return 0;
+}*/

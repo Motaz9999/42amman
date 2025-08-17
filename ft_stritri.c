@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_stritri.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 18:45:28 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 18:42:10 by motaz            ###   ########.fr       */
+/*   Created: 2025/08/14 17:18:53 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/16 19:35:31 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	unsigned char		*str;
-	unsigned char		*ptr;
-	int					len;
+	unsigned int	i;
 
-	len = ft_strlen(s);
-	str = malloc((len + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	ptr = str;
-	while (*s != '\0')
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] != '\0')
 	{
-		*str = *s;
-		str++;
-		s++;
+		f(i, &s[i]);
+		i++;
 	}
-	*str = '\0';
-	return ((char *)ptr);
 }
 /*
 #include <stdio.h>
-#include <stdlib.h>
 #include "libft.h"
+
+// دالة لتغيير كل حرف إلى كبير إذا الفهرس زوجي
+void make_upper_even(unsigned int i, char *c)
+{
+    if (i % 2 == 0 && *c >= 'a' && *c <= 'z')
+        *c = *c - 32;
+}
 
 int main(void)
 {
-    char *original = "Hello, 42!";
-    char *copy = ft_strdub(original, 5);
+    char str[] = "hello world";
 
-    printf("Copy: %s\n", copy); // Copy: Hello
+    printf("Original: %s\n", str);
+    ft_striteri(str, make_upper_even);
+    printf("After ft_striteri: %s\n", str);
 
-    free(copy); // لا تنسى تحرير الذاكرة
     return 0;
-}*/
+}
+*/
