@@ -6,20 +6,20 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:29:30 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 18:10:34 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 08:57:59 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	unsigned char	*loca;
 	size_t			i;
 
 	if (nmemb == 0 || size == 0)
 	{
-		return (malloc(1));
+		return (malloc(0));
 	}
 	if (nmemb != 0 && nmemb > (size_t)(-1) / size)
 	{
@@ -41,7 +41,7 @@ void	*calloc(size_t nmemb, size_t size)
 /*
 #include <stdio.h>
 #include <stdlib.h>
-#include "libft.h"  // لو بدك تجرب ft_calloc
+#include "libft.h" 
 
 int main(void)
 {

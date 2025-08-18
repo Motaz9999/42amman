@@ -6,31 +6,37 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:22:05 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 18:01:55 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 05:28:27 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *str)
 {
 	int	num;
 	int	sign;
 
 	num = 0;
 	sign = 1;
-	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	if (!str)
+		return (0);
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		if (*nptr == '-')
+		if (*str == '-')
 			sign *= -1;
-		nptr++;
+		str++;
 	}
-	while (*nptr != '\0' && (*nptr >= 48 && *nptr <= 57))
+	while (*str != '\0' && (*str >= 48 && *str <= 57))
 	{
-		num = num * 10 + (*nptr - '0');
-		nptr++;
+		if (num > 214748364 && (*str - '0') > 7 && sign == 1)
+			return (-1);
+		if (num > 214748364 && (*str - '0') > 8 && sign == -1)
+			return (0);
+		num = num * 10 + (*str - '0');
+		str++;
 	}
 	return (sign * num);
 }
@@ -65,4 +71,5 @@ int	main(void)
 	}
 	return (0);
 }
+
 */

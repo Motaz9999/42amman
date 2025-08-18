@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:09:07 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/17 00:14:25 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/17 14:46:05 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char			*ptr;
 
 	i = 0;
-	if (!s || !f )
+	if (!s || !f)
 		return (NULL);
 	new_str = malloc(ft_strlen(s) + 1);
 	ptr = new_str;

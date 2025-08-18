@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:03:01 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 19:32:40 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 08:34:11 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,42 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
-
-	str = (char *)s;
-	while (*str != '\0')
-	{
-		if (*str == (char)c)
-			return ((char *)str);
-		str++;
-	}
-	if (c == '\0')
-		return ((char *)str);
+	while (*s != '\0' && *s != (char)c)
+		s++;
+	if (*s == (char)c)
+		return ((char *)s);
 	return (NULL);
 }
-/*
-#include <stdio.h>
-#include "libft.h"
+// #include "libft.h"
+// #include <stdio.h>
+// #include <string.h>
 
-int main(void)
-{
-    char str[] = "Hello, 42!";
-    char *ptr;
-
-    ptr = ft_strchr(str, 'o');
-    if (ptr)
-        printf("Found 'o' at position: %ld\n", (ptr - str) + 1);
-    else
-        printf("'o' not found\n");
-
-    ptr = ft_strchr(str, 'z');
-    if (ptr)
-        printf("Found 'z' at position: %ld\n", ptr - str + 1);
-    else
-        printf("'z' not found\n");
-
-    // البحث عن '\0'
-    ptr = ft_strchr(str, '\0');
-    if (ptr)
-        printf("Found '\\0' at position: %ld\n", ptr - str + 1);
-
-    return 0;
-}
-*/
+// void test_ft_strchr(const char *s, int c)
+// {
+//     char *res_libc = strchr(s, c);
+//     char *res_ft = ft_strchr(s, c);
+//     printf("Testing strchr('%s', '%c')\n", s, c);
+//     if (res_libc == res_ft)
+//         printf(" ✅ Passed: returned %p\n\n", (void *)res_ft);
+//     else
+//  
+// int main(void)
+// {
+//     // 1. حرف موجود في البداية
+//     test_ft_strchr("Hello World", 'H');
+//     // 2. حرف موجود في الوسط
+//     test_ft_strchr("Hello World", 'o');
+//     // 3. حرف موجود في النهاية
+//     test_ft_strchr("Hello World", 'd');
+//     // 4. حرف غير موجود
+//     test_ft_strchr("Hello World", 'x');
+//     // 5. البحث عن نهاية السلسلة (\0)
+//     test_ft_strchr("Hello", '\0');
+//     // 6. البحث في سلسلة فارغة
+//     test_ft_strchr("", 'a');
+//     // 7. البحث عن مسافة
+//     test_ft_strchr("Hello World", ' ');
+//     // 8. بحث عن حرف متكرر للتأكد أنه يأخذ الأول
+//     test_ft_strchr("banana", 'a');
+//     return 0;
+// }

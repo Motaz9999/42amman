@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/14 17:18:53 by moodeh            #+#    #+#             */
+/*   Updated: 2025/08/17 14:43:02 by moodeh           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-// void my_fun2(unsigned int n,char *s)// comment this fun
-//{
-//}
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	i;
@@ -16,3 +25,25 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 		i++;
 	}
 }
+/*
+#include <stdio.h>
+#include "libft.h"
+
+// دالة لتغيير كل حرف إلى كبير إذا الفهرس زوجي
+void make_upper_even(unsigned int i, char *c)
+{
+    if (i % 2 == 0 && *c >= 'a' && *c <= 'z')
+        *c = *c - 32;
+}
+
+int main(void)
+{
+    char str[] = "hello world";
+
+    printf("Original: %s\n", str);
+    ft_striteri(str, make_upper_even);
+    printf("After ft_striteri: %s\n", str);
+
+    return 0;
+}
+*/

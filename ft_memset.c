@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:20:39 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 19:25:07 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 06:57:50 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_memset(void *s, int value, size_t num)
 	sptr = (unsigned char *)s;
 	while (num > 0)
 	{
-		*sptr = value;
+		*sptr = (unsigned char)value;
 		sptr++;
 		num--;
 	}

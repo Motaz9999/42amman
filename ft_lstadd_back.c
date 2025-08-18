@@ -6,13 +6,13 @@
 /*   By: moodeh <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:14:31 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/14 18:17:42 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/08/17 17:12:03 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new) // pointer to the head
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*current;
 

@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:17 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 22:50:26 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/17 14:45:04 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t		len_src;
 	size_t		i;
-	
+
 	i = 0;
 	len_src = ft_strlen(src);
-	if(size <= 0)
+	if (size <= 0)
 		return (len_src);
 	while (*src != '\0' && i < size - 1)
 	{

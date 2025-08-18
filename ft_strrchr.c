@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:06:41 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/17 01:36:19 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 08:36:02 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ char	*ft_strrchr(const char *s, int c)
 {
 	int			str_len;
 
-	if(!s)
+	if (!s)
 		return (NULL);
-	str_len = (int)ft_strlen(s); 
-	while (str_len >=  0)
+	str_len = (int)ft_strlen(s);
+	while (str_len >= 0)
 	{
 		if (s[str_len] == (char)c)
 			return ((char *)(s + str_len));
 		str_len--;
 	}
 	return (NULL);
-}/*
+}
+/*
 
 
 int main(void)

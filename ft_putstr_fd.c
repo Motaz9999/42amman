@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:28:19 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/17 02:52:42 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/18 05:52:10 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	int	len;
 
+	if (!s)
+		return ;
 	len = ft_strlen(s);
 	write(fd, s, len);
 }

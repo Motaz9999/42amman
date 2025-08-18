@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 14:12:48 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/16 18:04:33 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/17 17:54:12 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,24 @@ int main(void)
     char str1[20] = "Hello World";
     char str2[20] = "Hello World";
 
-    printf("قبل:\n");
+    printf(":\n");
     printf("str1 = %s\n", str1);
     printf("str2 = %s\n", str2);
 
-    // استخدام ft_bzero
     ft_bzero(str1, 5);
-    // استخدام bzero الأصلية
+
     bzero(str2, 5);
 
-    printf("\nبعد bzero:\n");
+    printf("\nbzero:\n");
     printf("str1 = %s\n", str1);
     printf("str2 = %s\n", str2);
 
-    // كمان نطبع القيم بايت بايت عشان نشوف الفرق بوضوح
-    printf("\nبايتات str1 بعد ft_bzero:\n");
+    
+    printf("\n str1  ft_bzero:\n");
     for (int i = 0; i < 12; i++)
         printf("%d ", (unsigned char)str1[i]);
 
-    printf("\n\nبايتات str2 بعد bzero:\n");
+    printf("\n\nstr2  bzero:\n");
     for (int i = 0; i < 12; i++)
         printf("%d ", (unsigned char)str2[i]);
 
@@ -60,4 +59,5 @@ int main(void)
 
     return 0;
 }
+
 */

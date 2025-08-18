@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:42:34 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/17 03:06:41 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/17 14:38:25 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_putnbr_fd(int n, int fd)
 {
 	if (n == -2147483648)
 	{
-			write(fd, "-2147483648", 11);
-			return ;
+		write(fd, "-2147483648", 11);
+		return ;
 	}
 	if (n < 0)
 	{
@@ -25,8 +25,8 @@ void	ft_putnbr_fd(int n, int fd)
 		n *= -1;
 	}
 	if (n >= 10)
-	ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd((n % 10) + '0' , fd);
+		ft_putnbr_fd((n / 10), fd);
+	ft_putchar_fd(((n % 10) + '0'), fd);
 }
 /*
 #include "libft.h"

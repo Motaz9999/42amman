@@ -1,10 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: motaz <motaz@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/08/17 17:04:51 by moodeh            #+#    #+#              #
+#    Updated: 2025/08/18 08:46:21 by motaz            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_atoi.c\
+SRC = 		ft_atoi.c\
 		ft_bzero.c\
 		ft_calloc.c\
 		ft_isalpha.c\
@@ -13,8 +25,10 @@ SRC = ft_atoi.c\
 		ft_isalnum.c\
 		ft_isprint.c\
 		ft_memchr.c\
+		ft_memcpy.c\
 		ft_memcmp.c\
 		ft_memmove.c\
+		ft_memset.c\
 		ft_putchar_fd.c\
 		ft_putendl_fd.c\
 		ft_putnbr_fd.c\
@@ -29,16 +43,17 @@ SRC = ft_atoi.c\
 		ft_strncmp.c\
 		ft_strnstr.c\
 		ft_strrchr.c\
-		ft_strsplit.c\
+		ft_substr.c\
+		ft_split.c\
 		ft_tolower.c\
 		ft_toupper.c\
+		ft_strjoin.c\
+		ft_strtrim.c\
 		ft_itoa.c
 
 OBJ = $(SRC:.c=.o)
 
-HEADER = libft.h
-
-BONUS =ft_lstadd_back.c\
+BONUS =		ft_lstadd_back.c\
 		ft_lstadd_front.c\
 		ft_lstclear.c\
 		ft_lstdelone.c\
@@ -50,19 +65,17 @@ BONUS =ft_lstadd_back.c\
 
 OBJBONUS = $(BONUS:.c=.o)
 
-all:$(NAME)
+all: $(NAME)
 
-$(NAME):$(OBJ)
-	ar rcs $(NAME)  $(OBJ)
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
-bonus: $(OBJBONUS)
+bonus: $(OBJ) $(OBJBONUS)
 	ar rcs $(NAME) $(OBJ) $(OBJBONUS)
 
-%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
-
 clean:
-	rm -f $(OBJ)$(OBJBONUS)
+	rm -f $(OBJ) $(OBJBONUS)
+
 fclean: clean
 	rm -f $(NAME)
 
