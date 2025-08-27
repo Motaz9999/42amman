@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:03 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/25 22:11:48 by motaz            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:11:32 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
+# include "libft/libft.h"
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-int	ft_put_hexa(unsigned long num, char form, int fd);
+
+int	ft_put_hexa_ptr(unsigned long num, char form, int fd);
+int	ft_put_hexa(unsigned int num, char form, int fd);
 int	ft_put_ptr(void *n, int fd);
 int	ft_put_unsign(unsigned int num, int fd);
 int	ft_select(const char format, va_list *ap2);
