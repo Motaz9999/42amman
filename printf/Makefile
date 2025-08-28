@@ -1,44 +1,34 @@
 
 NAME = libftprintf.a
-
-CC = cc 
-
-FLAGS = -Wall -Werror -Wextra
-
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
-
 RM = rm -f
 
-LIBFT_DIR = libft 
-
+LIBFT_DIR = libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
 
 SRC = ft_printf.c ft_print.c
-
 OBJ = $(SRC:.c=.o)
+
+TMP_DIR = tmp_libft
 
 all: $(NAME)
 
-$(LIBFT_A) : 
+
+$(LIBFT_A):
 	$(MAKE) -C $(LIBFT_DIR) all
 
-$(NAME) : $(LIBFT_A) $(OBJ)
-	@cp libft/libft.a templibft.a
-	@$(AR) x templibft.a
-	@$(AR) $(NAME) *.o $(OBJ)
-	@$(RM) templibft.a *.o
-
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
-
-clean :
+$(NAME): $(OBJ) $(LIBFT_A) 
+	$(AR) $(NAME) $(OBJ)
+clean:
 	$(RM) $(OBJ)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean : clean
+fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
-re : fclean all
+re: fclean all
 
-.PHONY: all clean fclean re ar
+.PHONY: all clean fclean re

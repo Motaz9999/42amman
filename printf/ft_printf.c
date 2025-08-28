@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/27 16:03:43 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/08/28 20:55:58 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_put_hexa_ptr(unsigned long num, char form, int fd)
 	else
 		hex = "0123456789ABCDEF";
 	if (num >= 16)
-		len += ft_put_hexa((num / 16), form, fd);
+		len += ft_put_hexa_ptr((num / 16), form, fd);
 	len += ft_putchar_len(hex[num % 16], fd);
 	return (len);
 }
