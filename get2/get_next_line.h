@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:40:13 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/31 22:20:37 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/01 20:33:34 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 #include <unistd.h>
 #include <stdlib.h> 
+
 
 char    *get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);

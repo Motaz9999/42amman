@@ -6,26 +6,29 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/31 23:12:02 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/01 20:33:43 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static char	*extract_line(char **stash);
+static void	trim_stash(char **stash, size_t take);
+static char	*join_and_free(char *s1, const char *s2);
+
 char	*get_next_line(int fd)
 {
 	static char	*stash = NULL;
+	ssize_t		bytes_readed;
 	char		*line;
 	char		buff[BUFFER_SIZE + 1];
-	ssize_t		bytes_readed;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	while (1)
-	{ // ok i need fun to handel the reading and return the buff
+	{
 		if (stash && ft_strchr(stash, '\n'))
-			return (extract_line(&stash)); // ok
-		process_read(fd, &stash);
+			return (extract_line(&stash));
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
 		if (bytes_readed < 0)
 		{
@@ -51,31 +54,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 	}
 }
-static char	*process_read(int fd, char **stash)
-{
-	char	buff[BUFFER_SIZE + 1];
-	ssize_t	bytes_readed;
 
-	bytes_readed = read(fd, buff, BUFFER_SIZE);
-	if (bytes_readed < 0)
-	{
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
-	if (bytes_readed == 0)
-	{
-		if (stash != NULL && *stash != '\0')
-		{
-			line = stash;
-			stash = NULL;
-			return (line);
-		}
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
-}
 static char	*extract_line(char **stash)
 {
 	char	*line;

@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:38:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/31 22:44:48 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/01 20:22:44 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 	while (*s && *s != ch)
 		s++;
-	return ((*s == ch) ? (char *)s : NULL);
+	if (*s == ch)
+		return ((char *)s);
+	else
+		return (NULL);
 }
 
 char	*ft_strdup(const char *s)
@@ -32,7 +35,7 @@ char	*ft_strdup(const char *s)
 
 	i = 0;
 	if (!s)
-		s = ""; // guard
+		s = "";
 	len = ft_strlen(s);
 	dup = malloc(len + 1);
 	if (!dup)
@@ -62,13 +65,15 @@ size_t	ft_strlen(const char *str)
 	}
 	return (count);
 }
+
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
+	size_t	srclen;
 
-	i = 0, srclen;
+	i = 0;
 	if (!src)
-	{ // guard
+	{
 		if (dstsize)
 			dst[0] = '\0';
 		return (0);
