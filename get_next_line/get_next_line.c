@@ -5,51 +5,122 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 22:04:57 by motaz             #+#    #+#             */
-/*   Updated: 2025/08/30 00:45:53 by motaz            ###   ########.fr       */
+/*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
+/*   Updated: 2025/09/01 22:02:50 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//(buffer if the line it soo long i need to return not a one)
-// and till i \n(take it with the read)  or the end of the file \0
-// if nothing to read  or error  return null
-// works on file and standerd input (0)
-// the return include \n
-////helper into the other .c file
-// buffer size = n its on the user
-// works without also soo we sohuld make deafult buffer if there is no input
-// dont modified the fd
-// must keep the point where i stop reading to the next time
-// read return 0<n bytes i read    0 -> end of file      -1 -> error
-// lets start
-// pointer to where i stoped reading
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 2147483647
-#endif
+#include "get_next_line.h"
 
-// hello		word 5
+static char	*extract_line(char **stash);
+static void	trim_stash(char **stash, size_t take);
+static char	*join_and_free(char *s1, const char *s2);
+
 char	*get_next_line(int fd)
 {
-	char	*sub_line;
-	int		len_of_line;
-	char	*the_line;
-	int		i;
+	static char	*stash = NULL;
+	ssize_t		bytes_readed;
+	char		*line;
+	char		buff[BUFFER_SIZE + 1];
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	while (1)
+	{
+		if (stash && ft_strchr(stash, '\n'))
+			return (extract_line(&stash));
+		bytes_readed = read(fd, buff, BUFFER_SIZE);
+		if (bytes_readed < 0)
+		{
+			free(stash);
+			stash = NULL;
+			return (NULL);
+		}
+		if (bytes_readed == 0)
+		{
+			if (stash != NULL && *stash != '\0')
+			{
+				line = stash;
+				stash = NULL;
+				return (line);
+			}
+			free(stash);
+			stash = NULL;
+			return (NULL);
+		}
+		buff[bytes_readed] = '\0';
+		stash = join_and_free(stash, buff);
+		if (!stash)
+			return (NULL);
+	}
+}
+
+static char	*extract_line(char **stash)
+{
+	char	*line;
+	size_t	len;
+
+	len = 0;
+	while ((*stash)[len] != '\n' && (*stash)[len] != '\0')
+		len++;
+	if ((*stash)[len] == '\n')
+		len++;
+	line = (char *)malloc(len + 1);
+	if (!line)
+		return (NULL);
+	ft_strlcpy(line, *stash, len + 1);
+	trim_stash(stash, len);
+	return (line);
+}
+
+static void	trim_stash(char **stash, size_t take)
+{
+	char	*new_stash;
+	int		remaining_len;
+
+	remaining_len = ft_strlen(*stash) - take;
+	if (remaining_len <= 0)
+	{
+		free(*stash);
+		*stash = NULL;
+		return ;
+	}
+	new_stash = malloc(remaining_len + 1);
+	if (!new_stash)
+	{
+		free(*stash);
+		*stash = NULL;
+		return ;
+	}
+	ft_strlcpy(new_stash, *stash + take, remaining_len + 1);
+	free(*stash);
+	*stash = new_stash;
+}
+
+static char	*join_and_free(char *s1, const char *s2)
+{
+	char	*join;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	sub_line = malloc(BUFFER_SIZE );
-	// first of thing i want to put whole line inside one sub
-	while (i < BUFFER_SIZE && sub_line[i] != '\n')
+	j = 0;
+	if (s1 == NULL)
+		s1 = ft_strdup("");
+	if (!s1 || !s2)
+		return (NULL);
+	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (join == NULL)
 	{
-		len_of_line += read(fd, sub_line, 1);
-		i++;
+		free(s1);
+		return (NULL);
 	}
-	if (sub_line[i] == '\n')
-	{
-		len_of_line = 0;
-		return (sub_line);
-	}
-	else
-	{
-		f(sub_line,len_of_line);
-	}
+	while (s1[i] != '\0')
+		join[j++] = s1[i++];
+	free(s1);
+	i = 0;
+	while (s2[i] != '\0')
+		join[j++] = s2[i++];
+	join[j] = '\0';
+	return (join);
 }
