@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_is_inset(char s, char *set)
+static int	ft_is_inset(char s, char *set)
 {
 	int	con;
 

@@ -33,7 +33,7 @@ int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-char	*ft_subs(char const *start, char const *end)
+static char	*ft_subs(char const *start, char const *end)
 {
 	int		i;
 	int		len;
@@ -53,7 +53,7 @@ char	*ft_subs(char const *start, char const *end)
 	return (str);
 }
 
-void	ft_free_split(char **substring)
+static void	ft_free_split(char **substring)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ void	ft_free_split(char **substring)
 	free(substring);
 }
 
-char	**finally(char **substrings, int count, char const *s, char c)
+static char	**finally(char **substrings, int count, char const *s, char c)
 {
 	char const	*start;
 	char const	*end;

@@ -71,7 +71,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
 bonus: $(OBJ) $(OBJBONUS)
-	ar rcs  $(OBJBONUS)
+	ar rcs $(NAME) $(OBJ) $(OBJBONUS)
 
 clean:
 	rm -f $(OBJ) $(OBJBONUS)

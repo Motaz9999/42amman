@@ -6,11 +6,11 @@
 /*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:42:34 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/19 14:43:00 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/04 17:16:30 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {

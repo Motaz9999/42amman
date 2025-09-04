@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/08/28 20:55:58 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/04 17:21:08 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_put_hexa_ptr(unsigned long num, char form, int fd)
+static int	ft_put_hexa_ptr(unsigned long num, char form, int fd)
 {
 	int		len;
 	char	*hex;
@@ -28,7 +28,7 @@ int	ft_put_hexa_ptr(unsigned long num, char form, int fd)
 	return (len);
 }
 
-int	ft_put_ptr(void *n, int fd)
+static int	ft_put_ptr(void *n, int fd)
 {
 	int				len;
 	unsigned long	num;
@@ -43,7 +43,7 @@ int	ft_put_ptr(void *n, int fd)
 	return (len);
 }
 
-int	ft_put_unsign(unsigned int num, int fd)
+static int	ft_put_unsign(unsigned int num, int fd)
 {
 	int	len;
 
@@ -54,7 +54,7 @@ int	ft_put_unsign(unsigned int num, int fd)
 	return (len);
 }
 
-int	ft_select(const char format, va_list *ap2)
+static int	ft_select(const char format, va_list *ap2)
 {
 	int	len;
 
