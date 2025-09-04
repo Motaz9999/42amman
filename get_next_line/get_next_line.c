@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/01 22:02:50 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/04 14:45:08 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static char	*extract_line(char **stash);
 static void	trim_stash(char **stash, size_t take);
 static char	*join_and_free(char *s1, const char *s2);
+static char	*fun(char **stash, int bytes_readed);
 
 char	*get_next_line(int fd)
 {
 	static char	*stash = NULL;
 	ssize_t		bytes_readed;
-	char		*line;
 	char		buff[BUFFER_SIZE + 1];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -30,29 +30,38 @@ char	*get_next_line(int fd)
 		if (stash && ft_strchr(stash, '\n'))
 			return (extract_line(&stash));
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
-		if (bytes_readed < 0)
-		{
-			free(stash);
-			stash = NULL;
-			return (NULL);
-		}
-		if (bytes_readed == 0)
-		{
-			if (stash != NULL && *stash != '\0')
-			{
-				line = stash;
-				stash = NULL;
-				return (line);
-			}
-			free(stash);
-			stash = NULL;
-			return (NULL);
-		}
+		if (bytes_readed <= 0)
+			return (fun(&stash, bytes_readed));
 		buff[bytes_readed] = '\0';
 		stash = join_and_free(stash, buff);
 		if (!stash)
 			return (NULL);
 	}
+}
+
+static char	*fun(char **stash, int bytes_readed)
+{
+	char		*line;
+
+	if (bytes_readed < 0)
+	{
+		free(*stash);
+		*stash = NULL;
+		return (NULL);
+	}
+	if (bytes_readed == 0)
+	{
+		if (*stash != NULL && **stash != '\0')
+		{
+			line = *stash;
+			stash = NULL;
+			return (line);
+		}
+		free(*stash);
+		*stash = NULL;
+		return (NULL);
+	}
+	return (NULL);
 }
 
 static char	*extract_line(char **stash)
