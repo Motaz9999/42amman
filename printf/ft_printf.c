@@ -6,7 +6,7 @@
 /*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/09/04 17:21:08 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/09 17:31:01 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_put_ptr(void *n, int fd)
 	unsigned long	num;
 
 	if (!n)
-		return (ft_putstr_len("0x0", fd));
+		return (ft_putstr_len("(nil)", fdmake));
 	num = (unsigned long)n;
 	len = 0;
 	len += ft_putchar_len('0', fd);
@@ -81,16 +81,21 @@ int	ft_printf(const char *format, ...)
 	int		len;
 	va_list	ap;
 
+	if (format == NULL)
+		return (-1);
 	len = 0;
 	va_start(ap, format);
 	while (*format != '\0')
 	{
-		if (*format == '%' && *(format + 1) != '\0')
+		if (*format == '%')
 		{
 			format++;
-			len += ft_select(*format, &ap);
+			if (*format != '\0')
+				len += ft_select(*format, &ap);
+			else
+				return (-1);
 		}
-		else
+		else if (*format != '%')
 			len += (int)write(1, format, 1);
 		format++;
 	}
