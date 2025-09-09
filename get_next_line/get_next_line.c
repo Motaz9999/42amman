@@ -6,7 +6,7 @@
 /*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/04 14:45:08 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/09 18:07:39 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ static char	*extract_line(char **stash)
 		len++;
 	if ((*stash)[len] == '\n')
 		len++;
-	line = (char *)malloc(len + 1);
-	if (!line)
+	line = NULL;// (char *)malloc(len + 1);//error happend when line = NULL
+	if (line == NULL)
+	{
+		free(stash);
 		return (NULL);
+	}
 	ft_strlcpy(line, *stash, len + 1);
 	trim_stash(stash, len);
 	return (line);
