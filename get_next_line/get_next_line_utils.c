@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:38:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/01 20:22:44 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/10 17:15:14 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ size_t	ft_strlen(const char *str)
 	size_t	count;
 
 	count = 0;
-	if (!str)
-	{
-		return (0);
-	}
 	while (*str != '\0')
 	{
 		count++;

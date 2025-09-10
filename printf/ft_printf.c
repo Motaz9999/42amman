@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/09/09 17:31:01 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/10 01:18:28 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_put_ptr(void *n, int fd)
 	unsigned long	num;
 
 	if (!n)
-		return (ft_putstr_len("(nil)", fdmake));
+		return (ft_putstr_len("(nil)", 1));
 	num = (unsigned long)n;
 	len = 0;
 	len += ft_putchar_len('0', fd);

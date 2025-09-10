@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/09 18:07:39 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:34:44 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,34 @@
 static char	*extract_line(char **stash);
 static void	trim_stash(char **stash, size_t take);
 static char	*join_and_free(char *s1, const char *s2);
-static char	*fun(char **stash, int bytes_readed);
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	static char	*stash[FOPEN_MAX];
 	ssize_t		bytes_readed;
 	char		buff[BUFFER_SIZE + 1];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
 		return (NULL);
 	while (1)
 	{
-		if (stash && ft_strchr(stash, '\n'))
-			return (extract_line(&stash));
+		if (stash[fd] && ft_strchr(stash[fd], '\n'))
+			return (extract_line(&stash[fd]));
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
-		if (bytes_readed <= 0)
-			return (fun(&stash, bytes_readed));
+		if (bytes_readed < 0)
+		{
+			free(stash[fd]);
+			stash[fd] = NULL;
+			return (NULL);
+		}
+		if (bytes_readed == 0)
+			break ;
 		buff[bytes_readed] = '\0';
-		stash = join_and_free(stash, buff);
-		if (!stash)
+		stash[fd] = join_and_free(stash[fd], buff);
+		if (!stash[fd])
 			return (NULL);
 	}
-}
-
-static char	*fun(char **stash, int bytes_readed)
-{
-	char		*line;
-
-	if (bytes_readed < 0)
-	{
-		free(*stash);
-		*stash = NULL;
-		return (NULL);
-	}
-	if (bytes_readed == 0)
-	{
-		if (*stash != NULL && **stash != '\0')
-		{
-			line = *stash;
-			stash = NULL;
-			return (line);
-		}
-		free(*stash);
-		*stash = NULL;
-		return (NULL);
-	}
-	return (NULL);
+	return (extract_line(&stash[fd]));
 }
 
 static char	*extract_line(char **stash)
@@ -69,15 +50,22 @@ static char	*extract_line(char **stash)
 	char	*line;
 	size_t	len;
 
+	if (!*stash || (*stash)[0] == '\0')
+	{
+		free(*stash);
+		*stash = NULL;
+		return (NULL);
+	}
 	len = 0;
 	while ((*stash)[len] != '\n' && (*stash)[len] != '\0')
 		len++;
 	if ((*stash)[len] == '\n')
 		len++;
-	line = NULL;// (char *)malloc(len + 1);//error happend when line = NULL
+	line = (char *)malloc(len + 1);
 	if (line == NULL)
 	{
-		free(stash);
+		free(*stash);
+		*stash = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(line, *stash, len + 1);
@@ -88,9 +76,14 @@ static char	*extract_line(char **stash)
 static void	trim_stash(char **stash, size_t take)
 {
 	char	*new_stash;
-	int		remaining_len;
+	size_t	remaining_len;
+	size_t	len;
 
-	remaining_len = ft_strlen(*stash) - take;
+	if (*stash == NULL)
+		len = 0;
+	else
+		len = ft_strlen(*stash);
+	remaining_len = len - take;
 	if (remaining_len <= 0)
 	{
 		free(*stash);
@@ -104,7 +97,7 @@ static void	trim_stash(char **stash, size_t take)
 		*stash = NULL;
 		return ;
 	}
-	ft_strlcpy(new_stash, *stash + take, remaining_len + 1);
+	ft_strlcpy(new_stash, *stash + take, (remaining_len + 1));
 	free(*stash);
 	*stash = new_stash;
 }
@@ -117,15 +110,16 @@ static char	*join_and_free(char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
+	if (!s2)
+		return (free(s1), NULL);
 	if (s1 == NULL)
 		s1 = ft_strdup("");
-	if (!s1 || !s2)
+	if (!s1)
 		return (NULL);
 	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (join == NULL)
 	{
-		free(s1);
-		return (NULL);
+		return (free(s1), NULL);
 	}
 	while (s1[i] != '\0')
 		join[j++] = s1[i++];

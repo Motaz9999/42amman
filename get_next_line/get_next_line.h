@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:40:13 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/04 14:41:39 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:02:41 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #  define BUFFER_SIZE 24
 # endif
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
