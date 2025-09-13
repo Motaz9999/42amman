@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/09/10 01:18:28 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/13 03:55:39 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static int	ft_select(const char format, va_list *ap2)
 		len += ft_put_ptr(va_arg(*ap2, void *), 1);
 	else if (format == 'x' || format == 'X')
 		len += ft_put_hexa(va_arg(*ap2, unsigned int), format, 1);
+	else
+		len += ft_putchar_len(format,1);
 	return (len);
 }
 
