@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 07:53:06 by moodeh            #+#    #+#             */
-/*   Updated: 2025/09/13 04:05:19 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/14 18:52:28 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_select(const char format, va_list *ap2)
 	else if (format == 'x' || format == 'X')
 		len += ft_put_hexa(va_arg(*ap2, unsigned int), format, 1);
 	else
-		len += ft_putchar_len(format, 1);
+		return (-1);
 	return (len);
 }
 
