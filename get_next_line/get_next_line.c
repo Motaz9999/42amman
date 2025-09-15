@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/10 21:34:44 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/15 02:59:45 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,41 @@ static char	*extract_line(char **stash);
 static void	trim_stash(char **stash, size_t take);
 static char	*join_and_free(char *s1, const char *s2);
 
+static void	*free_stash(char **stash, char *buff)
+{
+	free(buff);
+	free(*stash);
+	*stash = NULL;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*stash[FOPEN_MAX];
+	static char	*stash = NULL;
 	ssize_t		bytes_readed;
-	char		buff[BUFFER_SIZE + 1];
+	char		*buff;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FOPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	buff = malloc(BUFFER_SIZE + 1);
+	if (buff == NULL)
+		return (free_stash(&stash, NULL));
 	while (1)
 	{
-		if (stash[fd] && ft_strchr(stash[fd], '\n'))
-			return (extract_line(&stash[fd]));
+		if (stash && ft_strchr(stash, '\n'))
+			break ;
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
 		if (bytes_readed < 0)
-		{
-			free(stash[fd]);
-			stash[fd] = NULL;
-			return (NULL);
-		}
+			return (free_stash(&stash, buff));
 		if (bytes_readed == 0)
 			break ;
 		buff[bytes_readed] = '\0';
-		stash[fd] = join_and_free(stash[fd], buff);
-		if (!stash[fd])
-			return (NULL);
+		stash = join_and_free(stash, buff);
+		if (!stash)
+			return (free_stash(NULL, buff));
 	}
-	return (extract_line(&stash[fd]));
+	free(buff);
+	return (extract_line(&stash));
 }
 
 static char	*extract_line(char **stash)
