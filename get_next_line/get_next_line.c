@@ -6,7 +6,7 @@
 /*   By: motaz <motaz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/15 02:59:45 by motaz            ###   ########.fr       */
+/*   Updated: 2025/09/15 03:30:16 by motaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@ static char	*extract_line(char **stash);
 static void	trim_stash(char **stash, size_t take);
 static char	*join_and_free(char *s1, const char *s2);
 
-static void	*free_stash(char **stash, char *buff)
+// you cant free null soo i used 2 cases
+static void	*free_stash(char **stash, char *buff, int cas)
 {
-	free(buff);
-	free(*stash);
-	*stash = NULL;
+	if (cas == 1)
+	{
+		free(buff);
+		free(*stash);
+		*stash = NULL;
+	}
+	if (cas == 2)
+		free(buff);
 	return (NULL);
 }
 
@@ -34,20 +40,20 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
 	if (buff == NULL)
-		return (free_stash(&stash, NULL));
+		return (free_stash(&stash, NULL, 1));
 	while (1)
 	{
 		if (stash && ft_strchr(stash, '\n'))
 			break ;
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
 		if (bytes_readed < 0)
-			return (free_stash(&stash, buff));
+			return (free_stash(&stash, buff, 1));
 		if (bytes_readed == 0)
 			break ;
 		buff[bytes_readed] = '\0';
 		stash = join_and_free(stash, buff);
 		if (!stash)
-			return (free_stash(NULL, buff));
+			return (free_stash(NULL, buff, 2));
 	}
 	free(buff);
 	return (extract_line(&stash));
@@ -59,11 +65,7 @@ static char	*extract_line(char **stash)
 	size_t	len;
 
 	if (!*stash || (*stash)[0] == '\0')
-	{
-		free(*stash);
-		*stash = NULL;
-		return (NULL);
-	}
+		return (free_stash(stash, NULL, 1));
 	len = 0;
 	while ((*stash)[len] != '\n' && (*stash)[len] != '\0')
 		len++;
@@ -71,11 +73,7 @@ static char	*extract_line(char **stash)
 		len++;
 	line = (char *)malloc(len + 1);
 	if (line == NULL)
-	{
-		free(*stash);
-		*stash = NULL;
-		return (NULL);
-	}
+		return (free_stash(stash, NULL, 1));
 	ft_strlcpy(line, *stash, len + 1);
 	trim_stash(stash, len);
 	return (line);
@@ -119,16 +117,14 @@ static char	*join_and_free(char *s1, const char *s2)
 	i = 0;
 	j = 0;
 	if (!s2)
-		return (free(s1), NULL);
+		return (free_stash(NULL, s1, 2));
 	if (s1 == NULL)
 		s1 = ft_strdup("");
 	if (!s1)
 		return (NULL);
 	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (join == NULL)
-	{
-		return (free(s1), NULL);
-	}
+		return (free_stash(NULL, s1, 2));
 	while (s1[i] != '\0')
 		join[j++] = s1[i++];
 	free(s1);
