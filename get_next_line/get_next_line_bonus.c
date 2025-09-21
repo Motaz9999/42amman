@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line _bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moodeh <moodeh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:10:45 by motaz             #+#    #+#             */
-/*   Updated: 2025/09/16 17:57:36 by moodeh           ###   ########.fr       */
+/*   Updated: 2025/09/17 15:37:39 by moodeh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*extract_line(char **stash);
 static void	trim_stash(char **stash, size_t take);
@@ -32,7 +32,7 @@ static void	*free_stash(char **stash, char *buff, int cas)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	static char	*stash[_SC_OPEN_MAX];
 	ssize_t		bytes_readed;
 	char		*buff;
 
@@ -40,23 +40,23 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buff = malloc(BUFFER_SIZE + 1);
 	if (buff == NULL)
-		return (free_stash(&stash, NULL, 1));
+		return (free_stash(&stash[fd], NULL, 1));
 	while (1)
 	{
-		if (stash && ft_strchr(stash, '\n'))
+		if (stash[fd] && ft_strchr(stash[fd], '\n'))
 			break ;
 		bytes_readed = read(fd, buff, BUFFER_SIZE);
 		if (bytes_readed < 0)
-			return (free_stash(&stash, buff, 1));
+			return (free_stash(&stash[fd], buff, 1));
 		if (bytes_readed == 0)
 			break ;
 		buff[bytes_readed] = '\0';
-		stash = join_and_free(stash, buff);
-		if (!stash)
+		stash[fd] = join_and_free(stash[fd], buff);
+		if (!stash[fd])
 			return (free_stash(NULL, buff, 2));
 	}
 	free(buff);
-	return (extract_line(&stash));
+	return (extract_line(&stash[fd]));
 }
 
 static char	*extract_line(char **stash)
