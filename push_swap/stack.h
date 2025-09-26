@@ -1,4 +1,0 @@
-//add header
-typedef struct {
-    
-}
