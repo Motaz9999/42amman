@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef STACK_H
-# define STACK_H
-
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+typedef struct s_node
+{
+	int value;//the num form comd line
+	int index;//for sorting
+	struct s_node *next;//ready link
+} t_node;
 // includes for librarys
-# include "libft_printf/libft/libft.h"
-# include "libft_printf/printf/ft_printf.h"
+
 // for limits
 # include <limits.h>
 // for tests
@@ -27,14 +31,17 @@
 // for malloc and free and make the stack
 # include <stdlib.h>
 
-// here i make the node (and the list is stack it self) u here make the node and in the main u make the list then turn the list into stack
-typedef struct s_list
-{
-	int				content;
-	struct s_list	*next;
-}					t_node;
 //for deal with the list (stack)
-t_node				*ft_new_node(int content);
-void				ft_add_front(t_node **stack, t_node *new_node);
-int					ft_stack_size(t_node *stack);
+t_node *create_node (int val);
+int get_stack_size(t_node *stack);
+void push(t_node **stack, t_node *new_node);
+void free_stack(t_node **stack);
+void add_back(t_node **stack, t_node *new_node);
+
+//for error handle 
+void error_happend(t_node **stack);
+//stack a
+
+//stack b
+
 #endif

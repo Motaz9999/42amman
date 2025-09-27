@@ -21,6 +21,7 @@ typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	int		index;
 }	t_list;
 
 size_t	ft_strlen(const char *str);
